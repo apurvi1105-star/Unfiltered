@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Unfiltered - Help</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Comic Sans MS;
+            font-size: 19px;
+            background-color: #f3e6d1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 60px;
+            background-color: rgb(161, 119, 87);
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: rgb(69, 32, 19);
+        }
+
+        .links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: rgb(244, 237, 237);
+            padding: 10px 15px;
+        }
+
+        .links a:hover {
+            background-color: rgb(236, 240, 238);
+            color: rgb(69, 16, 16);
+            border-radius: 8px;
+        }
+
+        .help-msg {
+            text-align: center;
+            padding: 60px 20px 30px;
+        }
+
+        .help-msg h1 {
+            font-size: 45px;
+            font-style: italic;
+            font-family: Papyrus;
+            color: rgb(69, 32, 19);
+            margin-bottom: 20px;
+        }
+
+        .help-msg p {
+            max-width: 800px;
+            margin: auto;
+            font-size: 20px;
+            line-height: 1.7;
+            color: #6c2d08;
+        }
+
+        .help-section {
+            padding: 40px 8% 70px;
+            text-align: center;
+        }
+
+        .help-section h2 {
+            font-size: 35px;
+            margin-bottom: 35px;
+            color: rgb(69, 32, 19);
+        }
+
+        .help-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .help-card {
+            width: 270px;
+            padding: 30px 25px;
+            background-color: #6c4321;
+            color: white;
+            border-radius: 15px;
+        }
+
+        .help-card:hover {
+            background-color: #80552f;
+            transform: translateY(-5px);
+        }
+
+        .help-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .help-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #f1eaea;
+        }
+
+        .help-card .number {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 18px 0;
+        }
+
+        .help-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f3e6d1;
+            color: #6c4321;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-top: 10px;
+        }
+
+        .help-button:hover {
+            background-color: white;
+        }
+
+        .reminder {
+            max-width: 850px;
+            margin: 50px auto 0;
+            padding: 25px;
+            background-color: rgb(221, 199, 171);
+            border-radius: 15px;
+            color: #6c2d08;
+            line-height: 1.7;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">Unfiltered.</div>
+
+        <div class="links">
+            <a href="userhomepage.html">Home</a>
+            <a href="useraboutpage.html">About</a>
+            <a href="dashboardpage.html">Dashboard</a>
+            <a href="historypage.html">History</a>
+            <a href="helppage.html">Help</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+
+    </nav>
+
+
+    <section class="help-msg">
+
+        <h1>You don't have to face everything alone.</h1>
+
+        <p>
+            Some days can feel heavier than others.
+            Writing your thoughts can help, but sometimes talking
+            to someone can make things feel a little easier.
+            If you are feeling extremely low, overwhelmed or emotionally
+            distressed, please consider reaching out for professional support.
+        </p>
+
+    </section>
+
+
+    <section class="help-section">
+
+        <h2>Reach Out For Support</h2>
+
+        <div class="help-container">
+
+
+            <div class="help-card">
+
+                <h3> 🚨 Tele-MANAS</h3>
+
+                <p>
+                    Government of India's mental health support service
+                    for people experiencing emotional distress,
+                    anxiety, stress or other mental health concerns.
+                </p>
+
+                <div class="number">
+                    📞 14416
+                </div>
+
+                <p>
+                    Available 24×7
+                </p>
+
+                <a href="https://telemanas.mohfw.gov.in/"
+                   target="_blank"
+                   class="help-button">
+                    Visit Website
+                </a>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <h3>🚨 Emergency Support</h3>
+
+                <p>
+                    If you or someone around you is in immediate danger
+                    or needs urgent assistance, contact India's
+                    national emergency service.
+                </p>
+
+                <div class="number">
+                    📞 112
+                </div>
+
+                <p>
+                    National Emergency Number
+                </p>
+
+                <a href="https://112.gov.in/"
+                   target="_blank"
+                   class="help-button">
+                    Visit Website
+                </a>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <h3>🌿 Mental Health Programme</h3>
+
+                <p>
+                    The National Mental Health Programme provides
+                    information about mental health services and
+                    government initiatives available in India.
+                </p>
+
+                <a href="https://dghs.mohfw.gov.in/national-mental-health-programme.php"
+                   target="_blank"
+                   class="help-button">
+                    Visit Website
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="reminder">
+
+            <strong>🤎 A gentle reminder</strong>
+
+            <br><br>
+
+            Asking for help is completely okay.
+            Unfiltered is a space where you can express and understand
+            your thoughts, but it is not a replacement for professional
+            mental health care.
+
+            <br><br>
+
+            If you feel that you may not be able to keep yourself safe,
+            please contact emergency services or reach out to someone
+            you trust nearby.
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        function logout() {
+
+            localStorage.removeItem("username");
+
+            window.location.href = "homepage.html";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

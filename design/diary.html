@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Unfiltered - Write Diary</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Comic Sans MS;
+            background-color: #f3e6d1;
+            text-align: center;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 60px;
+            background-color: rgb(161, 119, 87);
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: rgb(69, 32, 19);
+        }
+
+        .links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: rgb(244, 237, 237);
+            padding: 10px 15px;
+        }
+
+        .links a:hover {
+            background-color: rgb(236, 240, 238);
+            color: rgb(69, 16, 16);
+            border-radius: 8px;
+        }
+
+        .diary-section {
+            padding: 50px 20px;
+        }
+
+        .diary-section h1 {
+            font-size: 48px;
+            font-family: Papyrus;
+            font-style: italic;
+            color: rgb(69, 32, 19);
+            margin-bottom: 10px;
+        }
+
+        .diary-section p {
+            font-size: 19px;
+            color: #6c2d08;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 70%;
+            height: 300px;
+            padding: 20px;
+            font-size: 18px;
+            margin-top: 20px;
+            border-radius: 15px;
+            border: 2px solid rgb(161, 119, 87);
+            background-color: #fff8ee;
+            resize: none;
+            font-family: Comic Sans MS;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: rgb(69, 32, 19);
+        }
+
+        button {
+            display: block;
+            margin: 25px auto;
+            padding: 12px 30px;
+            background-color: rgb(161, 119, 87);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 17px;
+            cursor: pointer;
+            font-family: Comic Sans MS;
+        }
+
+        button:hover {
+            background-color: rgb(69, 32, 19);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Unfiltered.
+        </div>
+
+        <div class="links">
+            <a href="userhomepage.html">Home</a>
+            <a href="aboutpage.html">About</a>
+            <a href="dashboardpage.html">Dashboard</a>
+            <a href="historypage.html">History</a>
+            <a href="helppage.html">Help</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+
+    </nav>
+
+
+    <section class="diary-section">
+
+        <p>
+            No filters. No judgement. Just you and your thoughts.
+        </p>
+
+        <textarea
+            id="diary-entry"
+            placeholder="Write anything you feel...">
+        </textarea>
+
+        <button onclick="saveDiary()">
+            Save Entry
+        </button>
+
+    </section>
+
+
+    <script>
+
+        const username = localStorage.getItem("username");
+
+        if (!username) {
+            window.location.href = "loginpage.html";
+        }
+
+
+        async function saveDiary() {
+
+            const diaryEntry =
+                document.getElementById("diary-entry").value;
+
+
+            if (!username) {
+
+                alert("Please login first.");
+
+                return;
+            }
+
+
+            if (!diaryEntry.trim()) {
+
+                alert("Please write something first.");
+
+                return;
+            }
+
+
+            try {
+
+                const response = await fetch(
+                    "http://127.0.0.1:8000/diary",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            username: username,
+                            diary_entry: diaryEntry
+                        })
+                    }
+                );
+
+
+                const result = await response.json();
+
+
+                alert(result.message);
+
+
+                document.getElementById("diary-entry").value = "";
+
+
+            } catch (error) {
+
+                alert("Something went wrong while saving your diary.");
+
+                console.log(error);
+
+            }
+
+        }
+
+
+        function logout() {
+
+            localStorage.removeItem("username");
+
+            window.location.href = "homepage.html";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

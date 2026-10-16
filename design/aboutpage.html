@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About - Unfiltered</title>
+
+    <style>
+
+        body {
+            margin: 0%;
+            font-family: Comic Sans MS;
+            font-size: 19px;
+            background-color: #f3e6d1;
+            color: #452013;
+        }
+
+
+        /* NAVBAR */
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 60px;
+            background-color: rgb(161, 119, 87);
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            font-family: Comic Sans MS;
+            color: rgb(69, 32, 19);
+        }
+
+        .links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: rgb(244, 237, 237);
+            padding: 10px 15px;
+        }
+
+        .links a:hover {
+            background-color: rgb(236, 240, 238);
+            color: rgb(69, 16, 16);
+            border-radius: 8px;
+        }
+
+
+        /* ABOUT HERO */
+
+        .about-hero {
+            min-height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .about-hero-content {
+            max-width: 900px;
+        }
+
+        .about-hero h1 {
+            font-size: 70px;
+            font-family: Papyrus;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .about-hero p {
+            font-size: 24px;
+            line-height: 1.8;
+            color: #6c2d08;
+        }
+
+
+        /* MAIN CONTENT */
+
+        .about-content {
+            max-width: 1000px;
+            margin: auto;
+            padding: 70px 30px;
+        }
+
+
+        /* CONTENT SECTION */
+
+        .about-block {
+            margin-bottom: 100px;
+        }
+
+        .about-block h2 {
+            font-size: 40px;
+            font-family: Papyrus;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .about-block p {
+            font-size: 19px;
+            line-height: 2;
+            color: #6c2d08;
+            text-align: justify;
+        }
+
+
+        /* QUOTE */
+
+        .quote {
+            margin: 100px auto;
+            max-width: 850px;
+            text-align: center;
+            padding: 50px 30px;
+            border-top: 2px solid #a17757;
+            border-bottom: 2px solid #a17757;
+        }
+
+        .quote p {
+            font-size: 30px;
+            line-height: 1.6;
+            font-family: Papyrus;
+            font-style: italic;
+            color: #452013;
+        }
+
+
+        /* HOW IT WORKS */
+
+        .process {
+            margin-top: 60px;
+        }
+
+        .process h2 {
+            font-size: 40px;
+            font-family: Papyrus;
+            font-style: italic;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .process-step {
+            margin-bottom: 45px;
+            padding-left: 30px;
+            border-left: 5px solid #6c4321;
+        }
+
+        .process-step h3 {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .process-step p {
+            font-size: 18px;
+            line-height: 1.9;
+            color: #6c2d08;
+        }
+
+
+        /* BUTTON SECTION */
+
+        .ending {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .ending h2 {
+            font-size: 42px;
+            font-family: Papyrus;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .ending p {
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.8;
+            color: #6c2d08;
+        }
+
+        .start-button {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 15px 32px;
+            background-color: #6c4321;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 17px;
+        }
+
+        .start-button:hover {
+            background-color: #453d10;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Unfiltered.
+        </div>
+
+        <div class="links">
+            <a href="userhomepage.html">Home</a>
+            <a href="useraboutpage.html">About</a>
+            <a href="dashboardpage.html">Dashboard</a>
+            <a href="historypage.html">History</a>
+            <a href="helppage.html">Help</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+
+    </nav>
+
+    <section class="about-hero">
+
+        <div class="about-hero-content">
+
+            <h1>About Unfiltered.</h1>
+
+            <p>
+                Sometimes, all we need is a quiet place where we can
+                put our thoughts into words without worrying about how
+                they sound, how they look, or what someone else might think.
+                Unfiltered was created to be that space.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="about-content">
+
+
+        <!-- OUR STORY -->
+
+        <section class="about-block">
+
+            <h2>Why Unfiltered Exists</h2>
+
+            <p>
+                Life can get overwhelming in ways that are not always easy
+                to explain. There are days when our minds are full of
+                thoughts, emotions, memories and things we never actually
+                say out loud. Sometimes we understand what we are feeling,
+                and sometimes we simply know that something feels different.
+                Writing can give those thoughts a place to exist. Unfiltered
+                was created with the idea that journaling should not feel
+                like another task or responsibility. It should feel natural,
+                personal and completely honest. A place where you can write
+                about your good days, difficult days, small achievements,
+                random thoughts or moments that seem impossible to explain.
+                There is no need to make your thoughts sound perfect.
+                There is no need to filter them. You simply write.
+            </p>
+
+        </section>
+
+
+
+        <!-- WHAT IS UNFILTERED -->
+
+        <section class="about-block">
+
+            <h2>More Than Just A Diary</h2>
+
+            <p>
+                Unfiltered is an AI-powered digital diary designed to make
+                the process of journaling more meaningful. Traditional
+                diaries allow us to store our memories and thoughts, but
+                Unfiltered goes one step further by helping you understand
+                the emotions behind your writing. Every diary entry becomes
+                a small reflection of what you are experiencing at that
+                moment. Through emotion analysis, the system can identify
+                different emotions expressed in your writing and help you
+                recognize patterns that may otherwise be easy to miss.
+                Over time, these small observations can give you a better
+                understanding of how your emotions change and what kind of
+                experiences may influence your mood.
+            </p>
+
+        </section>
+
+
+
+        <!-- QUOTE -->
+
+        <section class="quote">
+
+            <p>
+                "You don't always need to have the right words.
+                Sometimes, you just need a place to put them."
+            </p>
+
+        </section>
+
+
+
+        <!-- HOW IT WORKS -->
+
+        <section class="process">
+
+            <h2>How Unfiltered Works</h2>
+
+
+            <div class="process-step">
+
+                <h3>✍️ 01 — Write Without Filtering</h3>
+
+                <p>
+                    Start by writing whatever is on your mind. Your diary
+                    is your personal space, so you can write about your day,
+                    your thoughts, your emotions, your experiences or simply
+                    something that has been occupying your mind. There is no
+                    fixed format and no need to follow a particular structure.
+                    Just write naturally and let your thoughts flow.
+                </p>
+
+            </div>
+
+
+            <div class="process-step">
+
+                <h3>🧠 02 — Let AI Understand Your Entry</h3>
+
+                <p>
+                    Once your entry is submitted, the AI analyzes the text
+                    and looks for emotional patterns within your writing.
+                    Instead of simply storing your words, Unfiltered tries
+                    to understand the emotions expressed through them.
+                    This allows your diary to become more than a collection
+                    of old entries and gives you another perspective on
+                    what you may have been feeling at that moment.
+                </p>
+
+            </div>
+
+
+            <div class="process-step">
+
+                <h3>📊 03 — Discover Your Patterns</h3>
+
+                <p>
+                    As you continue journaling, your entries create a
+                    timeline of your experiences and emotions. Looking back
+                    at this history can help you notice patterns that are
+                    difficult to recognize when you are focused only on
+                    the present moment. You may begin to notice which days
+                    felt better, which emotions appear more frequently,
+                    or how your feelings change over time.
+                </p>
+
+            </div>
+
+
+            <div class="process-step">
+
+                <h3>🌱 04 — Reflect And Grow</h3>
+
+                <p>
+                    The purpose of Unfiltered is not to judge your emotions
+                    or tell you how you should feel. Instead, it is designed
+                    to help you pause, reflect and become more aware of
+                    yourself. Based on your emotional patterns, the platform
+                    can also provide simple activity suggestions that may
+                    help you take a moment for yourself and make your
+                    journaling experience more meaningful.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+</body>
+
+</html>

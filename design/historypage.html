@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Unfiltered - History</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Comic Sans MS;
+            font-size: 19px;
+            background-color: #f3e6d1;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 60px;
+            background-color: rgb(161, 119, 87);
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: rgb(69, 32, 19);
+        }
+        .links {
+            display: flex;
+            gap: 15px;
+        }
+        .links a {
+            text-decoration: none;
+            color: rgb(244, 237, 237);
+            padding: 10px 15px;
+        }
+        .links a:hover {
+            background-color: rgb(236, 240, 238);
+            color: rgb(69, 16, 16);
+            border-radius: 8px;
+        }
+        .entries {
+            width: 75%;
+            margin: 30px auto 70px;
+        }
+        .entry {
+            background-color: #fff7eb;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(69, 32, 19, 0.15);
+        }
+        .entry:hover {
+            transform: translateY(-3px);
+        }
+        .entry-date {
+            font-size: 15px;
+            color: #946b4c;
+            margin-bottom: 12px;
+        }
+        .entry-text {
+            color: #6c2d08;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .view-button,
+        .edit-button,
+        .delete-button {
+            border: none;
+            padding: 9px 18px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            font-family: Comic Sans MS;
+        }
+        .view-button {
+            background-color: #6c4321;
+        }
+        .edit-button {
+            background-color: #9b7653;
+        }
+        .delete-button {
+            background-color: rgb(161, 119, 87);
+        }
+        .view-button:hover {
+            background-color: #80552f;
+        }
+        .edit-button:hover {
+            background-color: #7c5d40;
+        }
+        .delete-button:hover {
+            background-color: rgb(120, 82, 58);
+        }
+        .no-entry {
+            text-align: center;
+            margin-top: 70px;
+            color: #6c2d08;
+            font-size: 21px;
+        }
+        .write-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #6c4321;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+        }
+        .write-button:hover {
+            background-color: #80552f;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-box {
+            width: 60%;
+            max-height: 75%;
+            overflow-y: auto;
+            background-color: #fff7eb;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+        }
+        .modal-box h2 {
+            color: #6c2d08;
+            margin-top: 0;
+        }
+        .modal-date {
+            font-size: 15px;
+            color: #946b4c;
+            margin-bottom: 20px;
+        }
+        .modal-text {
+            color: #6c2d08;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            margin-bottom: 25px;
+        }
+        .close-button {
+            border: none;
+            padding: 10px 22px;
+            border-radius: 20px;
+            background-color: #6c4321;
+            color: white;
+            cursor: pointer;
+            font-family: Comic Sans MS;
+        }
+        .edit-area {
+            width: 100%;
+            height: 250px;
+            padding: 15px;
+            font-size: 17px;
+            font-family: Comic Sans MS;
+            border-radius: 12px;
+            border: 1px solid #b89472;
+            box-sizing: border-box;
+            resize: vertical;
+            background-color: #fffdf8;
+        }
+        .save-button {
+            margin-top: 20px;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 20px;
+            background-color: #6c4321;
+            color: white;
+            cursor: pointer;
+            font-family: Comic Sans MS;
+        }
+        .cancel-button {
+            margin-top: 20px;
+            margin-left: 10px;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 20px;
+            background-color: #9b7653;
+            color: white;
+            cursor: pointer;
+            font-family: Comic Sans MS;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+
+        <div class="logo">Unfiltered.</div>
+
+        <div class="links">
+
+            <a href="userhomepage.html">Home</a>
+            <a href="aboutpage.html">About</a>
+            <a href="dashboardpage.html">Dashboard</a>
+            <a href="historypage.html">History</a>
+            <a href="helppage.html">Help</a>
+            <a href="#" onclick="logout()">Logout</a>
+
+        </div>
+    </nav>
+
+    <div class="entries" id="entries">
+    </div>
+    <div class="modal" id="viewModal">
+
+        <div class="modal-box">
+
+            <h2>Your Diary Entry 🤎</h2>
+
+            <div class="modal-date" id="viewDate"></div>
+
+            <div class="modal-text" id="viewText"></div>
+
+            <button class="close-button" onclick="closeViewModal()">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <div class="modal" id="editModal">
+        <div class="modal-box">
+
+            <h2>Edit Your Entry</h2>
+
+            <textarea
+                id="editText"
+                class="edit-area">
+            </textarea>
+            <br>
+            <button
+                class="save-button"
+                onclick="saveEdit()">
+                Save Changes
+            </button>
+            <button
+                class="cancel-button"
+                onclick="closeEditModal()">
+                Cancel
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const username = localStorage.getItem("username");
+
+        let currentDiaryId = null;
+
+        if (!username) {
+            window.location.href = "loginpage.html";
+        }
+        loadEntries();
+        async function loadEntries() {
+            const entriesContainer =
+                document.getElementById("entries");
+            try {
+                const response = await fetch(
+                    `http://127.0.0.1:8000/diary/${encodeURIComponent(username)}`
+                );
+                const entries = await response.json();
+                entriesContainer.innerHTML = "";
+                if (entries.length === 0) {
+                    entriesContainer.innerHTML = `
+                        <div class="no-entry">
+                            You haven't written anything yet. 🤎
+                            <br>
+                            <a
+                                href="diary.html"
+                                class="write-button">
+
+                                Write Your First Entry
+                            </a>
+                        </div>
+                    `;
+                    return;
+                }
+                entries.forEach(function(entry) {
+                    const entryBox =
+                        document.createElement("div");
+                    entryBox.className = "entry";
+                    const date =
+                        new Date(entry.created_at);
+                    const formattedDate =
+                        date.toLocaleDateString() +
+                        " • " +
+                        date.toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit"
+                        });
+                    const preview =
+                        entry.diary_entry.length > 180
+                        ? entry.diary_entry.substring(0, 180) + "..."
+                        : entry.diary_entry;
+                    entryBox.innerHTML = `
+                        <div class="entry-date">
+                            ${formattedDate}
+                        </div>
+                        <div class="entry-text"></div>
+                        <div class="buttons">
+                            <button class="view-button">
+                                View
+                            </button>
+                            <button class="edit-button">
+                                Edit
+                            </button>
+                            <button class="delete-button">
+                                Delete
+                            </button>
+                        </div>
+                    `;
+                    entryBox
+                        .querySelector(".entry-text")
+                        .textContent = preview;
+                    entryBox
+                        .querySelector(".view-button")
+                        .onclick = function() {
+                            openViewModal(
+                                entry.diary_entry,
+                                formattedDate
+                            );
+                        };
+                    entryBox
+                        .querySelector(".edit-button")
+                        .onclick = function() {
+                            openEditModal(
+                                entry.diary_id,
+                                entry.diary_entry
+                            );
+                        };
+                    entryBox
+                        .querySelector(".delete-button")
+                        .onclick = function() {
+                            deleteEntry(
+                                entry.diary_id
+                            );
+                        };
+                    entriesContainer.appendChild(entryBox);
+                });
+
+            }
+
+            catch (error) {
+
+                entriesContainer.innerHTML = `
+            
+                    <div class="no-entry">
+                        Unable to load your diary entries.
+                    </div>
+                `;
+                console.log(error);
+            }
+        }
+        function openViewModal(text, date) {
+            document.getElementById("viewText")
+                .textContent = text;
+            document.getElementById("viewDate")
+                .textContent = date;
+            document.getElementById("viewModal")
+                .style.display = "flex";
+        }
+        function closeViewModal() {
+            document.getElementById("viewModal")
+                .style.display = "none";
+        }
+        function openEditModal(diaryId, text) {
+            currentDiaryId = diaryId;
+            document.getElementById("editText")
+                .value = text;
+            document.getElementById("editModal")
+                .style.display = "flex";
+        }
+        function closeEditModal() {
+            document.getElementById("editModal")
+                .style.display = "none";
+            currentDiaryId = null;
+        }
+        async function saveEdit() {
+            const updatedText =
+                document.getElementById("editText").value;
+            if (updatedText.trim() === "") {
+                alert("Diary entry cannot be empty.");
+                return;
+            }
+            try {
+                const response = await fetch(
+                    `http://127.0.0.1:8000/diary/${currentDiaryId}`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            diary_entry: updatedText
+                        })
+                    }
+                );
+                if (response.ok) {
+                    alert(
+                        "Diary entry updated successfully."
+                    );
+                    closeEditModal();
+                    loadEntries();
+                }
+                else {
+                    alert(
+                        "Unable to update diary entry."
+                    );
+                }
+            }
+            catch (error) {
+                alert(
+                    "Something went wrong while updating."
+                );
+                console.log(error);
+            }
+        }
+        async function deleteEntry(diaryId) {
+            const answer = confirm(
+                "Are you sure you want to delete this diary entry?"
+            );
+            if (!answer) {
+                return;
+            }
+            try {
+                const response = await fetch(
+                    `http://127.0.0.1:8000/diary/${diaryId}`,
+                    {
+                        method: "DELETE"
+                    }
+                );
+                if (response.ok) {
+                    alert(
+                        "Diary entry deleted successfully."
+                    );
+                    loadEntries();
+                }
+                else {
+                    alert(
+                        "Unable to delete diary entry."
+                    );
+                }
+            }
+            catch (error) {
+                alert(
+                    "Something went wrong."
+                );
+                console.log(error);
+            }
+        }
+        function logout() {
+            localStorage.removeItem("username");
+            window.location.href = "homepage.html";
+        }
+    </script>
+</body>
+</html>

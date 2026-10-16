@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unfiltered - Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Comic Sans MS;
+            font-size: 19px;
+            background-color: #f3e6d1;
+            color: rgb(69, 32, 19);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 60px;
+            background-color: rgb(161, 119, 87);
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: rgb(69, 32, 19);
+        }
+
+        .links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: rgb(244, 237, 237);
+            padding: 10px 15px;
+        }
+
+        .links a:hover {
+            background-color: rgb(236, 240, 238);
+            color: rgb(69, 16, 16);
+            border-radius: 8px;
+        }
+
+        .dashboard {
+            width: 90%;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .dashboard h1 {
+            font-size: 42px;
+            margin-bottom: 5px;
+        }
+
+        #dashboardResult {
+            display: none;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .card {
+            width: 220px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            margin: 10px 0;
+            font-size: 30px;
+        }
+
+        .charts {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .chart-box {
+            width: 42%;
+            min-width: 350px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .suggestion-box {
+            width: 70%;
+            margin: 30px auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .suggestion-box h2 {
+            margin-top: 0;
+        }
+
+        .suggestion-box p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #6d5b50;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 17px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Unfiltered.</div>
+
+        <div class="links">
+            <a href="userhomepage.html">Home</a>
+            <a href="aboutpage.html">About</a>
+            <a href="dashboardpage.html">Dashboard</a>
+            <a href="historypage.html">History</a>
+            <a href="helppage.html">Help</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+
+        <h1>Your Emotional Dashboard</h1>
+
+        <div class="message" id="message">
+            Loading dashboard...
+        </div>
+
+        <div id="dashboardResult">
+
+            <div class="cards">
+
+                <div class="card">
+                    <p>Total Entries</p>
+                    <h2 id="totalEntries">0</h2>
+                </div>
+
+                <div class="card">
+                    <p>Dominant Emotion</p>
+                    <h2 id="dominantEmotion">-</h2>
+                </div>
+
+            </div>
+
+            <div class="charts">
+
+                <div class="chart-box">
+                    <h2>Emotion Frequency</h2>
+                    <canvas id="barChart"></canvas>
+                </div>
+
+                <div class="chart-box">
+                    <h2>Emotion Distribution</h2>
+                    <canvas id="doughnutChart"></canvas>
+                </div>
+
+            </div>
+
+            <div class="suggestion-box">
+                <h2>Suggestion For You</h2>
+                <p id="suggestionText">Loading suggestion...</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        let barChart;
+        let doughnutChart;
+
+        async function generateDashboard() {
+            const username = localStorage.getItem("username");
+
+            if (!username) {
+                document.getElementById("message").innerText =
+                    "Username not found. Please login again.";
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `http://127.0.0.1:8000/dashboard-data/${username}`
+                );
+
+                const data = await response.json();
+
+                if (data.message) {
+                    document.getElementById("dashboardResult").style.display = "none";
+                    document.getElementById("message").innerText = data.message;
+                    return;
+                }
+
+                document.getElementById("message").innerText = "";
+                document.getElementById("dashboardResult").style.display = "block";
+                document.getElementById("totalEntries").innerText = data.total_entries;
+                document.getElementById("dominantEmotion").innerText = data.dominant_emotion;
+
+                const emotions = Object.keys(data.emotion_counts);
+                const counts = Object.values(data.emotion_counts);
+
+                if (barChart) {
+                    barChart.destroy();
+                }
+
+                if (doughnutChart) {
+                    doughnutChart.destroy();
+                }
+
+                barChart = new Chart(
+                    document.getElementById("barChart"),
+                    {
+                        type: "bar",
+                        data: {
+                            labels: emotions,
+                            datasets: [{
+                                label: "Emotion Count",
+                                data: counts
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        stepSize: 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                );
+
+                doughnutChart = new Chart(
+                    document.getElementById("doughnutChart"),
+                    {
+                        type: "doughnut",
+                        data: {
+                            labels: emotions,
+                            datasets: [{
+                                data: counts
+                            }]
+                        },
+                        options: {
+                            responsive: true
+                        }
+                    }
+                );
+
+                getSuggestion(username);
+
+            } catch (error) {
+                document.getElementById("message").innerText =
+                    "Unable to load dashboard.";
+
+                console.log(error);
+            }
+        }
+
+        async function getSuggestion(username) {
+            try {
+                const response = await fetch(
+                    `http://127.0.0.1:8000/suggestion/${username}`
+                );
+
+                const data = await response.json();
+
+                if (data.suggestion) {
+                    document.getElementById("suggestionText").innerText =
+                        data.suggestion;
+                } else {
+                    document.getElementById("suggestionText").innerText =
+                        "No suggestion available.";
+                }
+
+            } catch (error) {
+                document.getElementById("suggestionText").innerText =
+                    "Unable to load suggestion.";
+
+                console.log(error);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("username");
+            window.location.href = "homepage.html";
+        }
+
+        generateDashboard();
+    </script>
+
+</body>
+
+</html>
